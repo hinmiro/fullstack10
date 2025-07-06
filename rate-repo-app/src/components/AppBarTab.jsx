@@ -1,5 +1,7 @@
 import React from 'react'
 import { Pressable, Text, StyleSheet, Alert } from 'react-native'
+import { useNavigate } from 'react-router-native'
+
 import theme from '../theme'
 
 const styles = StyleSheet.create({
@@ -10,9 +12,11 @@ const styles = StyleSheet.create({
     },
 })
 
-export const AppBarTab = ({ tabName }) => {
+export const AppBarTab = ({ tabName, link }) => {
+    const navigate = useNavigate()
+
     return (
-        <Pressable onPress={() => Alert.alert('Pressed button!')}>
+        <Pressable onPress={() => navigate(link)}>
             <Text style={styles.text}>{tabName}</Text>
         </Pressable>
     )
