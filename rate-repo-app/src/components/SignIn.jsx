@@ -14,6 +14,7 @@ const SignIn = () => {
             borderWidth: 1,
             padding: 10,
             borderRadius: 7,
+            fontFamily: theme.fonts.main,
         },
         signButton: {
             padding: 10,
@@ -27,18 +28,21 @@ const SignIn = () => {
             fontWeight: theme.fontWeights.bold,
             fontSize: theme.fontSizes.subheading,
             color: theme.colors.textSecondary,
+            fontFamily: theme.fonts.main,
         },
         errorText: {
             color: '#d73a4a',
             fontSize: theme.fontSizes.body,
             fontWeight: theme.fontWeights.normal,
+            fontFamily: theme.fonts.main,
         },
         errorInputContainer: {
-            marginBottom: 15,
+            marginBottom: 1,
             borderWidth: 1,
             padding: 10,
             borderRadius: 7,
             borderColor: '#d73a4a',
+            fontFamily: theme.fonts.main,
         },
     })
 
