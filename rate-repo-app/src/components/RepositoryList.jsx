@@ -1,6 +1,7 @@
 import { FlatList, View, StyleSheet, Text } from 'react-native'
 import RepositoryItem from './RepositoryItem'
-import { useState, useEffect } from 'react'
+import { GET_REPOSITORIES } from '../graphql/queries'
+import { useQuery } from '@apollo/client'
 
 const styles = StyleSheet.create({
     separator: {
@@ -19,25 +20,21 @@ const renderItem = ({ item }) => {
 }
 
 const RepositoryList = () => {
-    const [repositories, setRepositories] = useState([])
-    const [loading, setLoading] = useState(false)
+    const { data, error, loading } = useQuery(GET_REPOSITORIES, {
+        variables: { first: 10 },
+        fetchPolicy: 'cache-and-network',
+    })
 
-    const fetchRepositories = async () => {
-        setLoading(true)
-        const response = await fetch('http://10.0.2.2:5000/api/repositories')
-        const json = await response.json()
-
-        setLoading(false)
-        setRepositories(json)
+    if (loading) {
+        return <Text>Loading...</Text>
     }
 
-    useEffect(() => {
-        fetchRepositories()
-    }, [])
+    if (error) {
+        return <Text>{error.message}</Text>
+    }
 
-
-    const repositoryNodes = Array.isArray(repositories.edges)
-        ? repositories.edges.map((edge) => edge.node)
+    const repositoryNodes = data?.repositories?.edges
+        ? data.repositories.edges.map((edge) => edge.node)
         : []
 
     return (
