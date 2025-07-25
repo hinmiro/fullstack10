@@ -2,8 +2,11 @@ import { Text, TextInput, Pressable, View, StyleSheet } from 'react-native'
 import { useFormik } from 'formik'
 import theme from '../theme'
 import validationSchema from '../validation'
+import useSignIn from '../hooks/useSignIn'
 
 const SignIn = () => {
+    const [signIn] = useSignIn()
+
     const style = StyleSheet.create({
         formContainer: {
             display: 'flex',
@@ -52,8 +55,14 @@ const SignIn = () => {
             password: '',
         },
         validationSchema,
-        onSubmit: (values) => {
-            console.log(values)
+        onSubmit: async (values) => {
+            const { password, username } = values
+            try {
+                const {data} = await signIn({ variables: { username, password } })
+                console.log(data.authenticate.accessToken)
+            } catch (e) {
+                console.log(e)
+            }
         },
     })
 
