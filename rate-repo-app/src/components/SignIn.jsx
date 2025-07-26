@@ -3,9 +3,11 @@ import { useFormik } from 'formik'
 import theme from '../theme'
 import validationSchema from '../validation'
 import useSignIn from '../hooks/useSignIn'
+import AuthStorage from '../utils/authStorage'
 
 const SignIn = () => {
     const [signIn] = useSignIn()
+    const authStorage = new AuthStorage()
 
     const style = StyleSheet.create({
         formContainer: {
@@ -58,8 +60,12 @@ const SignIn = () => {
         onSubmit: async (values) => {
             const { password, username } = values
             try {
-                const {data} = await signIn({ variables: { username, password } })
-                console.log(data.authenticate.accessToken)
+                const { data } = await signIn({
+                    variables: { username, password },
+                })
+                await authStorage.setAccessToken(data.authenticate.accessToken)
+                // console.log(`token: ${await authStorage.getAccessToken()}`);
+
             } catch (e) {
                 console.log(e)
             }
