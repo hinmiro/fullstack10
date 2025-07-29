@@ -3,11 +3,13 @@ import { useFormik } from 'formik'
 import theme from '../theme'
 import validationSchema from '../validation'
 import useSignIn from '../hooks/useSignIn'
-import AuthStorage from '../utils/authStorage'
+import useAuthStorage from '../hooks/useAuthStorage'
+import { useNavigate } from 'react-router'
 
 const SignIn = () => {
     const [signIn] = useSignIn()
-    const authStorage = new AuthStorage()
+    const authStorage = useAuthStorage()
+    const navigate = useNavigate()
 
     const style = StyleSheet.create({
         formContainer: {
@@ -63,9 +65,8 @@ const SignIn = () => {
                 const { data } = await signIn({
                     variables: { username, password },
                 })
-                await authStorage.setAccessToken(data.authenticate.accessToken)
+                navigate('/')
                 // console.log(`token: ${await authStorage.getAccessToken()}`);
-
             } catch (e) {
                 console.log(e)
             }
