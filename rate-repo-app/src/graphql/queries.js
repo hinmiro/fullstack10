@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client'
 
+
 export const GET_REPOSITORIES = gql`
     query GetRepositories($first: Int) {
         repositories(first: $first) {
@@ -21,6 +22,15 @@ export const GET_REPOSITORIES = gql`
                 }
                 cursor
             }
+        }
+    }
+`
+
+export const GET_AUTHORIZED_USER = gql`
+    query Me {
+        me {
+            id,
+            username
         }
     }
 `

@@ -1,4 +1,3 @@
-import React from 'react'
 import { Pressable, Text, StyleSheet, Alert } from 'react-native'
 import { useNavigate } from 'react-router-native'
 
@@ -16,8 +15,10 @@ export const AppBarTab = ({ tabName, link }) => {
     const navigate = useNavigate()
 
     return (
-        <Pressable onPress={() => navigate(link)}>
-            <Text style={styles.text}>{tabName}</Text>
-        </Pressable>
+        <>
+            <Pressable onPress={() => navigate(link)}>
+                <Text style={styles.text}>{tabName}</Text>
+            </Pressable>
+        </>
     )
 }
