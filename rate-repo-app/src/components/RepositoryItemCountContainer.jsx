@@ -28,9 +28,11 @@ export const RepositoryItemCountContainer = ({ item }) => {
     return (
         <View style={style.countContainer}>
             <View style={style.itemContainer}>
-                <Text style={style.countText}>
+                <Text testID={'stargazersCount'} style={style.countText}>
                     {item.stargazersCount > 999 ? (
-                        <Text>{(item.stargazersCount / 1000).toFixed(1)}k</Text>
+                        <Text testID={'stargazersCount'}>
+                            {(item.stargazersCount / 1000).toFixed(1)}k
+                        </Text>
                     ) : (
                         item.stargazersCount
                     )}
@@ -38,9 +40,11 @@ export const RepositoryItemCountContainer = ({ item }) => {
                 <Text style={style.textSecondary}>Stars</Text>
             </View>
             <View style={style.itemContainer}>
-                <Text style={style.countText}>
+                <Text testID={'forksCount'} style={style.countText}>
                     {item.forksCount > 999 ? (
-                        <Text>{(item.forksCount / 1000).toFixed(1)}k</Text>
+                        <Text testID={'forksCount'}>
+                            {(item.forksCount / 1000).toFixed(1)}k
+                        </Text>
                     ) : (
                         item.forksCount
                     )}
@@ -48,9 +52,11 @@ export const RepositoryItemCountContainer = ({ item }) => {
                 <Text style={style.textSecondary}>Forks</Text>
             </View>
             <View style={style.itemContainer}>
-                <Text style={style.countText}>
+                <Text testID={'reviewCount'} style={style.countText}>
                     {item.reviewCount > 999 ? (
-                        <Text>{(item.reviewCount / 1000).toFixed(1)}k</Text>
+                        <Text testID={'reviewCount'}>
+                            {(item.reviewCount / 1000).toFixed(1)}k
+                        </Text>
                     ) : (
                         item.reviewCount
                     )}
@@ -58,7 +64,9 @@ export const RepositoryItemCountContainer = ({ item }) => {
                 <Text style={style.textSecondary}>Reviews</Text>
             </View>
             <View style={style.itemContainer}>
-                <Text style={style.countText}>{item.ratingAverage}</Text>
+                <Text testID={'ratingAverage'} style={style.countText}>
+                    {item.ratingAverage}
+                </Text>
                 <Text style={style.textSecondary}>Rating</Text>
             </View>
         </View>

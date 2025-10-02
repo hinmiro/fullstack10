@@ -61,8 +61,8 @@ const RepositoryItem = ({ item }) => {
                         source={{ uri: item.ownerAvatarUrl }}
                     />
                     <View style={style.textContainer}>
-                        <Text style={style.subHeading}>{item.fullName}</Text>
-                        <Text style={style.textSecondary}>
+                        <Text testID={"fullName"} style={style.subHeading}>{item.fullName}</Text>
+                        <Text testID={"description"} style={style.textSecondary}>
                             {item.description}
                         </Text>
                         <LanguageBlock item={item} />

@@ -19,7 +19,7 @@ const style = StyleSheet.create({
 export const LanguageBlock = ({ item }) => {
     return (
         <View style={style.languageBlock}>
-            <Text style={style.languageText}>{item.language}</Text>
+            <Text testID={"language"} style={style.languageText}>{item.language}</Text>
         </View>
     )
 }
