@@ -80,6 +80,7 @@ const SignIn = () => {
                     placeholder="Username"
                     value={formik.values.username}
                     id="usernameInput"
+                    testID="usernameInput"
                     onChangeText={formik.handleChange('username')}
                     style={
                         formik.touched.username && formik.errors.username
@@ -95,6 +96,7 @@ const SignIn = () => {
                 <TextInput
                     placeholder="Password"
                     secureTextEntry
+                    testID="passwordInput"
                     value={formik.values.password}
                     onChangeText={formik.handleChange('password')}
                     style={
