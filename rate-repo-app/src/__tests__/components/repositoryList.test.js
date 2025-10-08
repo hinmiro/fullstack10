@@ -79,8 +79,9 @@ describe('RepositoryList', () => {
                     />
                 )
             }
-
-            render(<RepositoryList repositories={repositories} />)
+            render(
+                    <RepositoryList repositories={repositories} />
+            )
 
             const fullNames = screen.getAllByTestId('fullName')
             const descriptions = screen.getAllByTestId('description')

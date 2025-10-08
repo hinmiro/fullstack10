@@ -1,8 +1,8 @@
-import React from 'react'
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, Pressable } from 'react-native'
 import theme from '../theme'
 import { RepositoryItemCountContainer } from './RepositoryItemCountContainer'
 import { LanguageBlock } from './LanguageBlock'
+import { useNavigate } from 'react-router-native'
 
 const style = StyleSheet.create({
     container: {
@@ -52,24 +52,33 @@ const style = StyleSheet.create({
 })
 
 const RepositoryItem = ({ item }) => {
+    const navigate = useNavigate()
+
     return (
         <>
-            <View style={style.container}>
-                <View style={style.contentRow}>
-                    <Image
-                        style={style.avatar}
-                        source={{ uri: item.ownerAvatarUrl }}
-                    />
-                    <View style={style.textContainer}>
-                        <Text testID={"fullName"} style={style.subHeading}>{item.fullName}</Text>
-                        <Text testID={"description"} style={style.textSecondary}>
-                            {item.description}
-                        </Text>
-                        <LanguageBlock item={item} />
-                        <RepositoryItemCountContainer item={item} />
+            <Pressable onPress={() => navigate(`/${item.id}`)}>
+                <View style={style.container}>
+                    <View style={style.contentRow}>
+                        <Image
+                            style={style.avatar}
+                            source={{ uri: item.ownerAvatarUrl }}
+                        />
+                        <View style={style.textContainer}>
+                            <Text testID={'fullName'} style={style.subHeading}>
+                                {item.fullName}
+                            </Text>
+                            <Text
+                                testID={'description'}
+                                style={style.textSecondary}
+                            >
+                                {item.description}
+                            </Text>
+                            <LanguageBlock item={item} />
+                            <RepositoryItemCountContainer item={item} />
+                        </View>
                     </View>
                 </View>
-            </View>
+            </Pressable>
         </>
     )
 }

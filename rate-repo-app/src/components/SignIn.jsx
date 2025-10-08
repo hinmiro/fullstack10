@@ -4,7 +4,7 @@ import theme from '../theme'
 import validationSchema from '../validation'
 import useSignIn from '../hooks/useSignIn'
 import useAuthStorage from '../hooks/useAuthStorage'
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router-native'
 
 const SignIn = () => {
     const [signIn] = useSignIn()
