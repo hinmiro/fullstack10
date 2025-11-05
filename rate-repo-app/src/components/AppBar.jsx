@@ -59,6 +59,12 @@ const AppBar = () => {
                         <AppBarTab tabName={'Repository'} link={'/'} />
                     </View>
                     <View style={styles.tabWrapper}>
+                        <AppBarTab
+                            tabName={'Create a Review'}
+                            link={'createReview'}
+                        />
+                    </View>
+                    <View style={styles.tabWrapper}>
                         {isSignedIn ? (
                             <Pressable onPress={handleSignOut}>
                                 <Text style={styles.text}>Sign out</Text>
