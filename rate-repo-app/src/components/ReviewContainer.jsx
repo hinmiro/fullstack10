@@ -23,13 +23,18 @@ const ReviewContainer = ({ items }) => {
     console.log(items)
 
     return (
-        <View>
-            <FlatList
-                data={reviewNodes}
-                ItemSeparatorComponent={ItemSeparator}
-                keyExtractor={(item) => item.id}
-                renderItem={renderItem}
-            />
+        <View style={{ flex: 1, alignItems: 'center' }}>
+            {reviewNodes.length === 0 ? (
+                <Text>No reviews available</Text>
+            ) : (
+                <FlatList
+                    data={reviewNodes}
+                    ItemSeparatorComponent={ItemSeparator}
+                    keyExtractor={(item) => item.id}
+                    renderItem={renderItem}
+                    nestedScrollEnabled={true}
+                />
+            )}
         </View>
     )
 }

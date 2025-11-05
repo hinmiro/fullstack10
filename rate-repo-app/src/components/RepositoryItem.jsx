@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet, Image, Pressable } from 'react-native'
 import theme from '../theme'
+import * as Linking from 'expo-linking'
 import { RepositoryItemCountContainer } from './RepositoryItemCountContainer'
 import { LanguageBlock } from './LanguageBlock'
 import { useNavigate } from 'react-router-native'
@@ -49,9 +50,29 @@ const style = StyleSheet.create({
         color: theme.colors.textSecondary,
         fontSize: theme.fontSizes.body,
     },
+    buttonText: {
+        fontWeight: theme.fontWeights.bold,
+        fontSize: theme.fontSizes.subheading,
+        color: theme.colors.textSecondary,
+        fontFamily: theme.fonts.main,
+    },
+    openButton: {
+        padding: 10,
+        marginTop: 15,
+        width: 325,
+        backgroundColor: theme.colors.primary,
+        borderRadius: 6,
+        display: 'flex',
+        alignSelf: 'center',
+        alignItems: 'center',
+    },
+    openButtonPressed: {
+        opacity: 10,
+        transform: [{ scale: 0.955 }],
+    },
 })
 
-const RepositoryItem = ({ item }) => {
+const RepositoryItem = ({ item, isSingleRepo, repository }) => {
     const navigate = useNavigate()
 
     return (
@@ -77,6 +98,20 @@ const RepositoryItem = ({ item }) => {
                             <RepositoryItemCountContainer item={item} />
                         </View>
                     </View>
+                    {isSingleRepo && (
+                        <Pressable
+                            style={({ pressed }) => [
+                                style.openButton,
+                                pressed && style.openButtonPressed,
+                            ]}
+                            android_ripple={{ color: 'rgba(255,255,255,0.2)' }}
+                            onPress={() => Linking.openURL(repository.url)}
+                        >
+                            <Text style={style.buttonText}>
+                                Open Github Repository
+                            </Text>
+                        </Pressable>
+                    )}
                 </View>
             </Pressable>
         </>
