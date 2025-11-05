@@ -6,6 +6,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { GET_REPOSITORY_BY_ID } from '../graphql/queries'
 import { useQuery } from '@apollo/client'
 import { useParams } from 'react-router-native'
+import ReviewContainer from './ReviewContainer'
 
 const SingleRepository = () => {
     const style = StyleSheet.create({
@@ -57,6 +58,7 @@ const SingleRepository = () => {
     if (error) return <Text>{error.message}</Text>
 
     const repository = data?.repository
+    const reviews = repository.reviews ? repository.reviews : []
 
     if (!repository) return <Text>No repository found</Text>
 
@@ -78,6 +80,7 @@ const SingleRepository = () => {
                         </Text>
                     </Pressable>
                 </View>
+                <ReviewContainer items={reviews} />
             </View>
         </View>
     )
