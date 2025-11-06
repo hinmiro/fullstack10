@@ -46,11 +46,10 @@ const style = StyleSheet.create({
     },
     scoreBorder: {
         color: theme.colors.secondary,
-        borderRadius: 35 / 2,
+        borderRadius: 45/2,
         borderColor: theme.colors.primary,
         padding: 5,
         borderWidth: 3,
-        width: 35,
     },
 })
 
@@ -59,8 +58,10 @@ const Review = ({ review }) => {
 
     return (
         <View style={style.container}>
-            <View style={style.scoreBorder}>
-                <Text style={style.subHeading}>{review.rating}</Text>
+            <View style={{flex: 1, width: 45, alignItems: 'center'}}>
+                <View style={style.scoreBorder}>
+                    <Text style={style.subHeading}>{review.rating}</Text>
+                </View>
             </View>
             <Text style={style.subHeading}>{review.user.username}</Text>
             <Text>{formattedDate}</Text>
