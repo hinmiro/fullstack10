@@ -23,7 +23,7 @@ const ReviewContainer = ({ items }) => {
     console.log(items)
 
     return (
-        <View style={{ flex: 1, alignItems: 'center' }}>
+        <View style={{ flex: 1 }}>
             {reviewNodes.length === 0 ? (
                 <Text>No reviews available</Text>
             ) : (
@@ -33,6 +33,7 @@ const ReviewContainer = ({ items }) => {
                     keyExtractor={(item) => item.id}
                     renderItem={renderItem}
                     nestedScrollEnabled={true}
+                    style={{ width: '100%' }}
                 />
             )}
         </View>

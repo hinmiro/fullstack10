@@ -9,6 +9,7 @@ const style = StyleSheet.create({
         justifyContent: 'space-evenly',
         borderBottomWidth: 10,
         borderColor: theme.colors.textSecondary,
+        margin: 5
     },
     contentRow: {
         display: 'flex',
@@ -46,7 +47,7 @@ const style = StyleSheet.create({
     },
     scoreBorder: {
         color: theme.colors.secondary,
-        borderRadius: 45/2,
+        borderRadius: 45 / 2,
         borderColor: theme.colors.primary,
         padding: 5,
         borderWidth: 3,
@@ -58,7 +59,7 @@ const Review = ({ review }) => {
 
     return (
         <View style={style.container}>
-            <View style={{flex: 1, width: 45, alignItems: 'center'}}>
+            <View style={style.contentRow}>
                 <View style={style.scoreBorder}>
                     <Text style={style.subHeading}>{review.rating}</Text>
                 </View>
