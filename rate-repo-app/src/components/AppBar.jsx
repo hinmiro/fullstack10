@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
     },
     scrollContent: {
         flexDirection: 'row',
-        alignItems: 'center',
         paddingHorizontal: 20,
         paddingBottom: 10,
     },
@@ -58,12 +57,15 @@ const AppBar = () => {
                     <View style={styles.tabWrapper}>
                         <AppBarTab tabName={'Repository'} link={'/'} />
                     </View>
-                    <View style={styles.tabWrapper}>
-                        <AppBarTab
-                            tabName={'Create a Review'}
-                            link={'createReview'}
-                        />
-                    </View>
+                    {isSignedIn && (
+                        <View style={styles.tabWrapper}>
+                            <AppBarTab
+                                tabName={'Create a Review'}
+                                link={'createReview'}
+                            />
+                        </View>
+                    )}
+
                     <View style={styles.tabWrapper}>
                         {isSignedIn ? (
                             <Pressable onPress={handleSignOut}>
