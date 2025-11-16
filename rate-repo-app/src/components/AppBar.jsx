@@ -66,6 +66,12 @@ const AppBar = () => {
                         </View>
                     )}
 
+                    {!isSignedIn && (
+                        <View style={styles.tabWrapper}>
+                            <AppBarTab tabName={'Sign up'} link={'signUp'} />
+                        </View>
+                    )}
+
                     <View style={styles.tabWrapper}>
                         {isSignedIn ? (
                             <Pressable onPress={handleSignOut}>
