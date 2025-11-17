@@ -68,7 +68,6 @@ const SignUp = () => {
                 const { data } = await signUp({
                     variables: { username, password },
                 })
-                console.log(data)
             } catch (e) {
                 console.log(e)
             }
