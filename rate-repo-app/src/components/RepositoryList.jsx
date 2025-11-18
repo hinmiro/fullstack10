@@ -35,13 +35,20 @@ const renderItem = ({ item }) => {
 }
 
 const RepositoryList = () => {
-    const [filter, setFilter] = useState('Latest repositories')
+    const [filter, setFilter] = useState('DEFAULT')
+    const [buttonText, setButtonText] = useState('Latest repositories')
     const [visible, SetVisible] = useState(false)
     const openMenu = () => SetVisible(true)
     const closeMenu = () => SetVisible(false)
 
+    const FILTERS = {
+        DEFAULT: { orderDirection: 'DESC', orderBy: 'CREATED_AT' },
+        HIGHEST: { orderDirection: 'DESC', orderBy: 'RATING_AVERAGE' },
+        LOWEST: { orderDirection: 'ASC', orderBy: 'RATING_AVERAGE' },
+    }
+
     const { data, error, loading } = useQuery(GET_REPOSITORIES, {
-        variables: { first: 10 },
+        variables: { first: 10, ...FILTERS[filter] },
         fetchPolicy: 'cache-and-network',
     })
 
@@ -66,7 +73,7 @@ const RepositoryList = () => {
                     anchor={
                         <Button
                             onPress={openMenu}
-                            children={filter}
+                            children={buttonText}
                             icon={'filter-variant'}
                             buttonColor="white"
                         ></Button>
@@ -74,21 +81,24 @@ const RepositoryList = () => {
                 >
                     <Menu.Item
                         onPress={() => {
-                            setFilter('Latest repositories')
+                            setFilter('DEFAULT')
+                            setButtonText('Latest repositories')
                             closeMenu()
                         }}
                         title="Latest repositories"
                     />
                     <Menu.Item
                         onPress={() => {
-                            setFilter('Highest rated repositories')
+                            setFilter('HIGHEST')
+                            setButtonText('Highest rated repositories')
                             closeMenu()
                         }}
                         title="Highest rated repositories"
                     />
                     <Menu.Item
                         onPress={() => {
-                            setFilter('Lowest rated repositories')
+                            setFilter('LOWEST')
+                            setButtonText('Lowest rated repositories')
                             closeMenu()
                         }}
                         title="Lowest rated repositories"
