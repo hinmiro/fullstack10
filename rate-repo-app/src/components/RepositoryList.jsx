@@ -2,7 +2,7 @@ import { FlatList, View, StyleSheet, Text } from 'react-native'
 import RepositoryItem from './RepositoryItem'
 import { GET_REPOSITORIES } from '../graphql/queries'
 import { useQuery } from '@apollo/client'
-import { Menu, Divider, Button, PaperProvider } from 'react-native-paper'
+import { Menu, Button, PaperProvider } from 'react-native-paper'
 import { useState } from 'react'
 import theme from '../theme'
 
