@@ -2,8 +2,9 @@ import { FlatList, View, StyleSheet, Text } from 'react-native'
 import RepositoryItem from './RepositoryItem'
 import { GET_REPOSITORIES } from '../graphql/queries'
 import { useQuery } from '@apollo/client'
-import { Menu, Button, PaperProvider } from 'react-native-paper'
+import { Menu, Button, PaperProvider, Searchbar } from 'react-native-paper'
 import { useState } from 'react'
+import { useDebounce } from 'use-debounce'
 import theme from '../theme'
 
 const styles = StyleSheet.create({
@@ -38,6 +39,8 @@ const RepositoryList = () => {
     const [filter, setFilter] = useState('DEFAULT')
     const [buttonText, setButtonText] = useState('Latest repositories')
     const [visible, SetVisible] = useState(false)
+    const [keyword, setKeyword] = useState('')
+    const [debounceKeyword] = useDebounce(keyword, 1000)
     const openMenu = () => SetVisible(true)
     const closeMenu = () => SetVisible(false)
 
@@ -48,15 +51,19 @@ const RepositoryList = () => {
     }
 
     const { data, error, loading } = useQuery(GET_REPOSITORIES, {
-        variables: { first: 10, ...FILTERS[filter] },
+        variables: {
+            first: 10,
+            ...FILTERS[filter],
+            searchKeyword: debounceKeyword,
+        },
         fetchPolicy: 'cache-and-network',
     })
 
-    if (loading) {
+    if (loading && !data) {
         return <Text>Loading...</Text>
     }
 
-    if (error) {
+    if (error && !data) {
         return <Text>{error.message}</Text>
     }
 
@@ -66,6 +73,11 @@ const RepositoryList = () => {
 
     return (
         <PaperProvider>
+            <Searchbar
+                placeholder="Search"
+                onChangeText={setKeyword}
+                value={keyword}
+            />
             <View style={styles.filterContainer}>
                 <Menu
                     visible={visible}
