@@ -6,7 +6,7 @@ import SignIn from './SignIn'
 import SingleRepository from './SingleRepository'
 import CreateReviewForm from './CreateReviewForm'
 import SignUp from './SignUp'
-import { Searchbar } from 'react-native-paper'
+import UserReviews from './UserReviews'
 
 const styles = StyleSheet.create({
     container: {
@@ -26,6 +26,7 @@ const Main = () => {
                 <Route path="/:id" element={<SingleRepository />} />
                 <Route path="/createReview" element={<CreateReviewForm />} />
                 <Route path="/signUp" element={<SignUp />} />
+                <Route path="/myReviews" element={<UserReviews />} />
             </Routes>
         </View>
     )

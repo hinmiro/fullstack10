@@ -65,7 +65,14 @@ const AppBar = () => {
                             />
                         </View>
                     )}
-
+                    {isSignedIn && (
+                        <View style={styles.tabWrapper}>
+                            <AppBarTab
+                                tabName={'My reviews'}
+                                link={'myReviews'}
+                            />
+                        </View>
+                    )}
                     {!isSignedIn && (
                         <View style={styles.tabWrapper}>
                             <AppBarTab tabName={'Sign up'} link={'signUp'} />

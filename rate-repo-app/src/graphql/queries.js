@@ -44,6 +44,23 @@ export const GET_AUTHORIZED_USER = gql`
         me {
             id
             username
+            reviews {
+                edges {
+                    node {
+                        createdAt
+                        id
+                        rating
+                        repository {
+                            name
+                            ownerName
+                        }
+                        text
+                        user {
+                            username
+                        }
+                    }
+                }
+            }
         }
     }
 `

@@ -20,7 +20,7 @@ const ReviewContainer = ({ items }) => {
     }
 
     const reviewNodes = items?.edges ? items.edges.map((edge) => edge.node) : []
-    console.log(items)
+    console.log(reviewNodes)
 
     return (
         <View style={{ flex: 1 }}>
