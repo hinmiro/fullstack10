@@ -23,12 +23,9 @@ const UserReviews = () => {
         console.error(error)
     }
 
-    const reviewsObject = data?.me?.reviews ?? { edges: [] }
-    const edges = Array.isArray(reviewsObject.edges) ? reviewsObject.edges : []
-
     return (
         <View style={styles.repositoryContainer}>
-            <ReviewContainer items={data.me.reviews} />
+            <ReviewContainer items={data.me.reviews} buttons={true} />
         </View>
     )
 }

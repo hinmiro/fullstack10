@@ -1,6 +1,9 @@
 import React from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import { Text, View, StyleSheet, Pressable, Alert } from 'react-native'
 import theme from '../theme'
+import { useNavigate } from 'react-router-native'
+import { useMutation } from '@apollo/client'
+import { DELETE_REVIEW } from '../graphql/mutations'
 
 const style = StyleSheet.create({
     container: {
@@ -9,7 +12,7 @@ const style = StyleSheet.create({
         justifyContent: 'space-evenly',
         borderBottomWidth: 10,
         borderColor: theme.colors.textSecondary,
-        margin: 5
+        margin: 5,
     },
     contentRow: {
         display: 'flex',
@@ -52,10 +55,63 @@ const style = StyleSheet.create({
         padding: 5,
         borderWidth: 3,
     },
+    buttonText: {
+        fontWeight: theme.fontWeights.bold,
+        fontSize: theme.fontSizes.subheading,
+        color: theme.colors.textSecondary,
+        fontFamily: theme.fonts.main,
+    },
+    viewButton: {
+        padding: 10,
+        backgroundColor: '#0066D3',
+        borderRadius: 6,
+        display: 'flex',
+        alignItems: 'center',
+    },
+    deleteButton: {
+        padding: 10,
+        backgroundColor: '#d30000ff',
+        borderRadius: 6,
+        display: 'flex',
+        alignItems: 'center',
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        marginTop: 20,
+    },
 })
 
-const Review = ({ review }) => {
+const Review = ({ review, buttons = false }) => {
+    const navigate = useNavigate()
     const formattedDate = new Date(review.createdAt).toLocaleDateString()
+
+    const [deleteReview] = useMutation(DELETE_REVIEW)
+
+    const handleDelete = () => {
+        Alert.alert(
+            'Delete review',
+            'Are you sure you want to delete this review?',
+            [
+                { text: 'Cancel', style: 'cancel' },
+                {
+                    text: 'Delete',
+                    style: 'destructive',
+                    onPress: async () => {
+                        try {
+                            await deleteReview({
+                                variables: { deleteReviewId: review.id },
+                            })
+                            
+                        } catch (e) {
+                            console.log(e)
+                        }
+                    },
+                },
+            ]
+        )
+    }
 
     return (
         <View style={style.container}>
@@ -67,6 +123,24 @@ const Review = ({ review }) => {
             <Text style={style.subHeading}>{review.user.username}</Text>
             <Text>{formattedDate}</Text>
             <Text style={style.containerText}>{review.text}</Text>
+            {buttons && (
+                <View style={style.buttonContainer}>
+                    <View style={style.viewButton}>
+                        <Pressable
+                            onPress={() => navigate(`/${review.repository.id}`)}
+                        >
+                            <Text style={style.buttonText}>
+                                View Repository
+                            </Text>
+                        </Pressable>
+                    </View>
+                    <View style={style.deleteButton}>
+                        <Pressable onPress={handleDelete}>
+                            <Text style={style.buttonText}>Delete review</Text>
+                        </Pressable>
+                    </View>
+                </View>
+            )}
         </View>
     )
 }

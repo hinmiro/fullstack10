@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, View, Text, FlatList } from 'react-native'
 import Review from './Review'
 
-const ReviewContainer = ({ items }) => {
+const ReviewContainer = ({ items, buttons = false }) => {
     const styles = StyleSheet.create({
         separator: {
             height: 10,
@@ -14,7 +14,7 @@ const ReviewContainer = ({ items }) => {
     const renderItem = ({ item }) => {
         return (
             <>
-                <Review review={item} />
+                <Review review={item} buttons={buttons} />
             </>
         )
     }
