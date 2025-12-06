@@ -83,11 +83,12 @@ const style = StyleSheet.create({
     },
 })
 
-const Review = ({ review, buttons = false }) => {
+const Review = ({ review, buttons = false, refetch }) => {
     const navigate = useNavigate()
     const formattedDate = new Date(review.createdAt).toLocaleDateString()
-
-    const [deleteReview] = useMutation(DELETE_REVIEW)
+    const [deleteReview] = useMutation(DELETE_REVIEW, {
+        fetchPolicy: 'no-cache',
+    })
 
     const handleDelete = () => {
         Alert.alert(
@@ -103,7 +104,7 @@ const Review = ({ review, buttons = false }) => {
                             await deleteReview({
                                 variables: { deleteReviewId: review.id },
                             })
-                            
+                            refetch()
                         } catch (e) {
                             console.log(e)
                         }

@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
 })
 
 const UserReviews = () => {
-    const { data, error, loading } = useQuery(GET_CURRENT_USER, {
+    const { data, error, loading, refetch } = useQuery(GET_CURRENT_USER, {
         variables: { includeReviews: true },
         fetchPolicy: 'cache-and-network',
     })
@@ -25,7 +25,11 @@ const UserReviews = () => {
 
     return (
         <View style={styles.repositoryContainer}>
-            <ReviewContainer items={data.me.reviews} buttons={true} />
+            <ReviewContainer
+                items={data.me.reviews}
+                buttons={true}
+                refetch={refetch}
+            />
         </View>
     )
 }
