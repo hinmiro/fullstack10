@@ -1,14 +1,20 @@
 import React from 'react'
 import { StyleSheet, View, Text, FlatList } from 'react-native'
 import Review from './Review'
-import { useMutation } from '@apollo/client'
-import { DELETE_REVIEW } from '../graphql/queries'
 
-const ReviewContainer = ({ items, buttons = false, refetch = {} }) => {
+const ReviewContainer = ({
+    items,
+    buttons = false,
+    refetch = () => {},
+    onEndReached = false,
+}) => {
     const styles = StyleSheet.create({
         separator: {
             height: 10,
         },
+        container: {
+            flex: 1
+        }
     })
 
     const ItemSeparator = () => <View style={styles.separator} />
@@ -24,7 +30,7 @@ const ReviewContainer = ({ items, buttons = false, refetch = {} }) => {
     const reviewNodes = items?.edges ? items.edges.map((edge) => edge.node) : []
 
     return (
-        <View style={{ flex: 1 }}>
+        <View style={styles.container}>
             {reviewNodes.length === 0 ? (
                 <Text>No reviews available</Text>
             ) : (
@@ -33,8 +39,8 @@ const ReviewContainer = ({ items, buttons = false, refetch = {} }) => {
                     ItemSeparatorComponent={ItemSeparator}
                     keyExtractor={(item) => item.id}
                     renderItem={renderItem}
-                    nestedScrollEnabled={true}
-                    style={{ width: '100%' }}
+                    onEndReached={onEndReached}
+                    onEndReachedThreshold={0.8}
                 />
             )}
         </View>

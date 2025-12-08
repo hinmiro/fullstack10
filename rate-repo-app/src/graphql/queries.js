@@ -66,7 +66,7 @@ export const GET_AUTHORIZED_USER = gql`
 `
 
 export const GET_REPOSITORY_BY_ID = gql`
-    query GetRepositoryById($id: ID!) {
+    query ($id: ID!, $first: Int, $after: String) {
         repository(id: $id) {
             id
             createdAt
@@ -79,8 +79,9 @@ export const GET_REPOSITORY_BY_ID = gql`
             language
             ownerAvatarUrl
             url
-            reviews {
+            reviews(first: $first, after: $after) {
                 edges {
+                    cursor
                     node {
                         id
                         text
@@ -91,6 +92,11 @@ export const GET_REPOSITORY_BY_ID = gql`
                             username
                         }
                     }
+                }
+                pageInfo {
+                    endCursor
+                    startCursor
+                    hasNextPage
                 }
             }
         }
